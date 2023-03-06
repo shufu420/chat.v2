@@ -74,40 +74,6 @@
         Text: <textarea id="text"></textarea><br>
         <input type="button" onclick="send();" value="send"><br>
     </div>
-
-    <script type="text/javascript">
-        $(document).ready(function(){ 
-            cometApi.start({node:"app.comet-server.ru", dev_id:15 })
-            cometApi.subscription("simplechat.newMessage", function(event){
-                $("#web_chat").append('<b>'+HtmlEncode(event.data.name)+'</b>')
-                $("#web_chat").append('<pre>'+HtmlEncode(event.data.text)+'</pre>')
-                $("#web_chat").append('<br>')
-            })
-        })
-
-        function HtmlEncode(s){
-            var el = document.createElement("div");
-            el.innerText = el.textContent = s;
-            s = el.innerHTML;
-            return s;
-        }
-        
-        function send(){
-           var name = $('#name').val();
-           var text = $('#text').val();
-           
-           $.ajax({
-                url: "https://comet-server.com/doc/CppComet/chat-example/chat.php",
-                type: "POST", 
-                data:"text="+encodeURIComponent(text)+"&name="+encodeURIComponent(name)
-           });
-        }
-
-        // added code to scroll to bottom every 0.1 seconds
-        setInterval(function() {
-            window.scrollTo(0, document.body.scrollHeight);
-        }, 100);
-    </script>
   <script src="chat.js"></script>
 </body>
 </html>
